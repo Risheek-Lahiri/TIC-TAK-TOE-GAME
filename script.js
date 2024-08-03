@@ -1,11 +1,14 @@
-// Script.js
 let boxes = document.querySelectorAll(".box");
 let resetBtn = document.querySelector("#reset-btn");
-let startGameBtn = document.querySelector("start-btn");
+let startGameBtn = document.querySelector("#start-btn");
 let newGameBtn = document.querySelector("#new-btn");
 let msgContainer = document.querySelector(".msg-container");
 let msg = document.querySelector("#msg");
+let nameContainer = document.querySelector(".name-container");
+let gameContainer = document.querySelector(".container");
 
+let playerOName = "";
+let playerXName = "";
 let turnO = true; //playerX, playerO
 let count = 0; //To Track Draw
 
@@ -19,6 +22,15 @@ const winPatterns = [
   [3, 4, 5],
   [6, 7, 8],
 ];
+
+startGameBtn.addEventListener("click", () => {
+  playerOName = document.querySelector("#playerO").value || "Player O";
+  playerXName = document.querySelector("#playerX").value || "Player X";
+
+  nameContainer.classList.add("hide");
+  gameContainer.classList.remove("hide");
+  resetBtn.classList.remove("hide");
+});
 
 const resetGame = () => {
   turnO = true;
@@ -72,7 +84,8 @@ const enableBoxes = () => {
 };
 
 const showWinner = (winner) => {
-  msg.innerText = `Congratulations, Winner is ${winner}`;
+  const winnerName = winner === "O" ? playerOName : playerXName;
+  msg.innerText = `Congratulations👏👏👏 ${winnerName}`;
   msgContainer.classList.remove("hide");
   disableBoxes();
 };
@@ -92,6 +105,5 @@ const checkWinner = () => {
   }
 };
 
-newGameBtn.addEventListener("click", resetGame);
 newGameBtn.addEventListener("click", resetGame);
 resetBtn.addEventListener("click", resetGame);
